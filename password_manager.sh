@@ -27,8 +27,7 @@ echo 'ユーザー名を入力してください : '
 read user
 echo 'パスワードを入力してください : '
 read pass
-
-echo 'Thank you!'
+printf 'Thank you\033[31m!\033[0m'
 
 #色を変更
 #バリデーション処理
