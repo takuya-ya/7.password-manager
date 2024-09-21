@@ -2,25 +2,39 @@
 
 password_manager_input()
 {
-#入力を受け取る
-echo 'パスワードマネージャーへようこそ!'
-echo 'サービス名を入力して下さい : '
-read service
-echo 'ユーザー名を入力してください : '
-read user
-echo 'パスワードを入力してください : '
-read pass
-#色を変更
-printf 'Thank you\033[31m!\033[0m\n'
+    echo 'パスワードマネージャーへようこそ!'
+    echo 'サービス名を入力して下さい : '
+    read service
+    echo 'ユーザー名を入力してください : '
+    read user
+    echo 'パスワードを入力してください : '
+    read pass
+}
+
+validate_input()
+{
+    if [ -z "$service" ]; then
+            echo 'サービス名が入力されていません'
+    fi
+
+    if [ -z "$user" ]; then
+            echo 'ユーザー名が入力されていません'
+    fi
+
+    if [ -z "$password" ]; then
+            echo 'パスワードが入力されていません'
+    fi
 }
 
 password_manager_input
+validate_input
+
+printf 'Thank you\033[31m!\033[0m\n'
 
 
 
 
-
-# #バリデーション処理
+# バリデーション処理
 # save_login_data
 # #入力をファイルへリダイレクトして保存
 # echo ${service}:${user}:${pass} >> login_data.text
