@@ -27,9 +27,8 @@ validate_input()
     fi
 }
 
-password_manager_input
-validate_input
-
+count_and_display_errors()
+{
     error_num=0
     for error in "${errors[@]}"; do
         if [ -n "$error" ]; then
@@ -42,6 +41,11 @@ validate_input
     else
         printf 'Thank you\033[31m!\033[0m\n'
     fi
+}
+
+password_manager_input
+validate_input
+count_and_display_errors
 
 # save_login_data
 # #入力をファイルへリダイレクトして保存
