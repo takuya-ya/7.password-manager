@@ -11,30 +11,38 @@ password_manager_input()
     read pass
 }
 
+declare -A errors=([service_error]='' [user_error]='' [pass_error]='')
 validate_input()
 {
     if [ -z "$service" ]; then
-            echo 'サービス名が入力されていません'
+        errors[service_error]='サービス名が入力されていません'
     fi
 
     if [ -z "$user" ]; then
-            echo 'ユーザー名が入力されていません'
+        errors[user_error]='ユーザー名が入力されていません'
     fi
 
-    if [ -z "$password" ]; then
-            echo 'パスワードが入力されていません'
+    if [ -z "$pass" ]; then
+        errors[pass_error]='パスワードが入力されていません'
     fi
 }
 
 password_manager_input
 validate_input
 
-printf 'Thank you\033[31m!\033[0m\n'
+    error_num=0
+    for error in "${errors[@]}"; do
+        if [ -n "$error" ]; then
+            ((error_num++))
+        fi
+    done
 
+    if [ "$error_num" -ne 0 ]; then
+        printf "%s\n" "${errors[@]}"
+    else
+        printf 'Thank you\033[31m!\033[0m\n'
+    fi
 
-
-
-# バリデーション処理
 # save_login_data
 # #入力をファイルへリダイレクトして保存
 # echo ${service}:${user}:${pass} >> login_data.text
