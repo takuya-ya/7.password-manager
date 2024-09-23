@@ -38,14 +38,14 @@ count_and_display_errors()
 
     if [ "$error_num" -ne 0 ]; then
         printf "%s\n" "${errors[@]}"
-    else
-        printf 'Thank you\033[31m!\033[0m\n'
+        exit
     fi
 }
 
 password_manager_input
 validate_input
 count_and_display_errors
+printf 'Thank you\033[31m!\033[0m\n'
 
 # save_login_data
 # #入力をファイルへリダイレクトして保存
