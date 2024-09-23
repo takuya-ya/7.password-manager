@@ -4,26 +4,26 @@ password_manager_input()
 {
     echo 'パスワードマネージャーへようこそ!'
     echo 'サービス名を入力して下さい : '
-    read service
+    read service_name
     echo 'ユーザー名を入力してください : '
-    read user
+    read user_name
     echo 'パスワードを入力してください : '
-    read pass
+    read password
 }
 
-declare -A errors=([service_error]='' [user_error]='' [pass_error]='')
+declare -A errors=([service_name_error]='' [user_name_error]='' [password_error]='')
 validate_input()
 {
-    if [ -z "$service" ]; then
-        errors[service_error]='サービス名が入力されていません'
+    if [ -z "$service_name" ]; then
+        errors[service_name_error]='サービス名が入力されていません'
     fi
 
-    if [ -z "$user" ]; then
-        errors[user_error]='ユーザー名が入力されていません'
+    if [ -z "$user_name" ]; then
+        errors[user_name_error]='ユーザー名が入力されていません'
     fi
 
-    if [ -z "$pass" ]; then
-        errors[pass_error]='パスワードが入力されていません'
+    if [ -z "$password" ]; then
+        errors[password_error]='パスワードが入力されていません'
     fi
 }
 
