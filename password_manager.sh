@@ -42,14 +42,16 @@ count_and_display_errors()
     fi
 }
 
+save_login_data() {
+    echo "${service_name}:${user_name}:${password}" >> keep_login_data.txt
+}
+
 password_manager_input
 validate_input
 count_and_display_errors
+save_login_data
 printf 'Thank you\033[31m!\033[0m\n'
 
-# save_login_data
-# #入力をファイルへリダイレクトして保存
-# echo ${service}:${user}:${pass} >> login_data.text
 # #エラー処理
 
 << COMMENTOUT
