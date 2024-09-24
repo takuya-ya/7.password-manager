@@ -9,6 +9,7 @@ password_manager_input()
     read user_name
     echo 'パスワードを入力してください : '
     read password
+    echo
 }
 
 declare -A errors=([service_name_error]='' [user_name_error]='' [password_error]='')
@@ -25,13 +26,15 @@ validate_input()
     if [ -z "$password" ]; then
         errors[password_error]='パスワードが入力されていません'
     fi
+    error_keys=(service_name_error user_name_error password_error)
 }
 
 display_errors()
 {
-    for error in "${errors[@]}"; do
-     if [ -n "$error" ]; then
-        printf "%s\n" "${error}"
+    for key in "${error_keys[@]}"; do
+        if [ -n "${errors["${key}"]}" ]; then
+            printf "%s\n" "${errors["${key}"]}"
+            error_status=true
         fi
     done
 }
@@ -43,9 +46,11 @@ save_login_data() {
 password_manager_input
 validate_input
 display_errors
-save_login_data
-printf 'Thank you\033[31m!\033[0m\n'
+# save_login_data
 
+if [ -z "${error_status}" ]; then
+    printf 'Thank you\033[31m!\033[0m\n'
+fi
 # #エラー処理
 
 << COMMENTOUT
