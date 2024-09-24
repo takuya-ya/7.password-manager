@@ -46,9 +46,9 @@ save_login_data() {
 password_manager_input
 validate_input
 display_errors
-# save_login_data
 
 if [ -z "${error_status}" ]; then
+    save_login_data
     printf 'Thank you\033[31m!\033[0m\n'
 fi
 # #エラー処理
