@@ -27,19 +27,13 @@ validate_input()
     fi
 }
 
-count_and_display_errors()
+display_errors()
 {
-    error_num=0
     for error in "${errors[@]}"; do
-        if [ -n "$error" ]; then
-            ((error_num++))
+     if [ -n "$error" ]; then
+        printf "%s\n" "${error}"
         fi
     done
-
-    if [ "$error_num" -ne 0 ]; then
-        printf "%s\n" "${errors[@]}"
-        exit
-    fi
 }
 
 save_login_data() {
@@ -48,7 +42,7 @@ save_login_data() {
 
 password_manager_input
 validate_input
-count_and_display_errors
+display_errors
 save_login_data
 printf 'Thank you\033[31m!\033[0m\n'
 
