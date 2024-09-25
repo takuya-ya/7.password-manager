@@ -1,25 +1,6 @@
 #!/bin/bash
 
-display_menu() {
-    while true; do
-        echo "パスワードマネージャーへようこそ！"
-        echo "次の選択肢から入力してください(Add Password/Get Password/Exit)："
-        read menu
-        if [ "${menu}" = "Add Password" ]; then
-            addassword
-        elif [  "${menu}" = "Get Password" ]; then
-            GetPassword
-        elif [ "${menu}" = "Exit" ]; then
-            printf 'Thank you\033[31m!\033[0m\n'
-            exit
-        else
-            echo '入力が間違えています。Add Password/Get Password/Exit から入力してください。'
-            echo
-        fi
-    done
-}
-
-password_manager_input()
+add_password()
 {
     echo 'パスワードマネージャーへようこそ!'
     echo 'サービス名を入力して下さい : '
@@ -62,14 +43,32 @@ save_login_data() {
     echo "${service_name}:${user_name}:${password}" >> keep_login_data.txt
 }
 
-display_menu
-password_manager_input
-validate_input
-display_errors
+# get_password()
+# {}
 
-if [ -z "${error_status}" ]; then
-    # save_login_data
-fi
+while true; do
+    echo "パスワードマネージャーへようこそ！"
+    echo "次の選択肢から入力してください(Add Password/Get Password/Exit)："
+    read menu
+
+    if [ "${menu}" = "Add Password" ]; then
+        add_password
+        validate_input
+        display_errors
+        if [ -z "${error_status}" ]; then
+            save_login_data
+            # echo 'パスワードの追加は成功しました。'
+        fi
+    elif [  "${menu}" = "Get Password" ]; then
+        get_password
+    elif [ "${menu}" = "Exit" ]; then
+        printf 'Thank you\033[31m!\033[0m\n'
+        exit
+    else
+        echo '入力が間違えています。Add Password/Get Password/Exit から入力してください。'
+        echo
+    fi
+done
 
 << COMMENTOUT
 
