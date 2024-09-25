@@ -57,7 +57,7 @@ while true; do
         display_errors
         if [ -z "${error_status}" ]; then
             save_login_data
-            # echo 'パスワードの追加は成功しました。'
+            echo 'パスワードの追加は成功しました。'
         fi
     elif [  "${menu}" = "Get Password" ]; then
         get_password
