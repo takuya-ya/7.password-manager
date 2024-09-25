@@ -2,7 +2,6 @@
 
 add_password()
 {
-    echo 'パスワードマネージャーへようこそ!'
     echo 'サービス名を入力して下さい : '
     read service_name
     echo 'ユーザー名を入力してください : '
@@ -44,15 +43,14 @@ save_login_data() {
 }
 
 get_password() {
-
-# ## サービス名が保存されていた場合
-# サービス名：hoge
-# ユーザー名：fuga
-# パスワード：piyo
     echo 'サービス名を入力して下さい：'
     read input_service_name
-    # 区切り文字で分割し、先頭ブロック（サービス名）を検索する方法もある
-    grep "^${input_service_name}" keep_login_data.txt
+    result=$( grep "^${input_service_name}" keep_login_data.txt | awk -F ':' '{print $1,$2,$3}')
+    read -a result <<< "${result}"
+    echo "サービス名：${result[0]}"
+    echo "ユーザー名：${result[1]}"
+    echo "パスワード：${result[2]}"
+
     if [ $? -ne 0 ]; then
         echo 'そのサービスは登録されていません。'
     fi
@@ -85,21 +83,5 @@ while true; do
 done
 
 << COMMENTOUT
-
-選択肢の関数作成
-テスト
-
-Add Password が入力されると、サービス名、ユーザー名、パスワードの入力が求められ、入力された情報をファイルに保存します。
- Get Password が入力されると、サービス名の入力が求められ、入力されたサービスのサービス名、ユーザー名、パスワードが表示されます。
-▼アウトプット
-
-# Add Password が入力された場合
-サービス名を入力してください：
-ユーザー名を入力してください：
-パスワードを入力してください：
-
-パスワードの追加は成功しました。
-次の選択肢から入力してください(Add Password/Get Password/Exit)：
-
 
 COMMENTOUT
