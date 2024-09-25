@@ -43,8 +43,21 @@ save_login_data() {
     echo "${service_name}:${user_name}:${password}" >> keep_login_data.txt
 }
 
-# get_password()
-# {}
+get_password() {
+#     # Get Password が入力された場合
+# サービス名を入力してください：
+# ## サービス名が保存されていなかった場合
+# そのサービスは登録されていません。
+# ## サービス名が保存されていた場合
+# サービス名：hoge
+# ユーザー名：fuga
+# パスワード：piyo
+    echo 'サービス名を入力して下さい：'
+    read input_service_name
+    # 区切り文字で分割し、先頭ブロック（サービス名）を検索する方法もある
+    grep "^${input_service_name}" keep_login_data.txt
+    echo
+}
 
 while true; do
     echo "パスワードマネージャーへようこそ！"
@@ -58,6 +71,7 @@ while true; do
         if [ -z "${error_status}" ]; then
             save_login_data
             echo 'パスワードの追加は成功しました。'
+            echo
         fi
     elif [  "${menu}" = "g" ]; then
         get_password
@@ -87,13 +101,5 @@ Add Password が入力されると、サービス名、ユーザー名、パス�
 パスワードの追加は成功しました。
 次の選択肢から入力してください(Add Password/Get Password/Exit)：
 
-# Get Password が入力された場合
-サービス名を入力してください：
-## サービス名が保存されていなかった場合
-そのサービスは登録されていません。
-## サービス名が保存されていた場合
-サービス名：hoge
-ユーザー名：fuga
-パスワード：piyo
 
 COMMENTOUT
