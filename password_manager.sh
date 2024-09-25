@@ -51,7 +51,7 @@ while true; do
     echo "次の選択肢から入力してください(Add Password/Get Password/Exit)："
     read menu
 
-    if [ "${menu}" = "Add Password" ]; then
+    if [ "${menu}" = "a" ]; then
         add_password
         validate_input
         display_errors
@@ -59,9 +59,9 @@ while true; do
             save_login_data
             echo 'パスワードの追加は成功しました。'
         fi
-    elif [  "${menu}" = "Get Password" ]; then
+    elif [  "${menu}" = "g" ]; then
         get_password
-    elif [ "${menu}" = "Exit" ]; then
+    elif [ "${menu}" = "e" ]; then
         printf 'Thank you\033[31m!\033[0m\n'
         exit
     else
