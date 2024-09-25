@@ -45,15 +45,19 @@ save_login_data() {
 get_password() {
     echo -n 'サービス名を入力して下さい：'
     read input_service_name
-    result=$( grep "^${input_service_name}" keep_login_data.txt | awk -F ':' '{print $1,$2,$3}')
-    read -a result <<< "${result}"
-    echo "サービス名：${result[0]}"
-    echo "ユーザー名：${result[1]}"
-    echo "パスワード：${result[2]}"
 
-    if [ $? -ne 0 ]; then
-        echo 'そのサービスは登録されていません。'
+    user_information=$( grep "^${input_service_name}" keep_login_data.txt | awk -F ':' '{print $1,$2,$3}')
+
+    if [ -z "${user_information}" ]; then
+        echo -e "そのサービスは登録されていません。\n"
+        return
     fi
+
+    read -a user_information <<< "${user_information}"
+    echo "サービス名：${user_information[0]}"
+    echo "ユーザー名：${user_information[1]}"
+    echo "パスワード：${user_information[2]}"
+
     echo
 }
 
