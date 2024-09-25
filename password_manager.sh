@@ -2,7 +2,6 @@
 
 add_password()
 {
-    echo 'パスワードマネージャーへようこそ!'
     echo 'サービス名を入力して下さい : '
     read service_name
     echo 'ユーザー名を入力してください : '
