@@ -2,12 +2,12 @@
 
 add_password()
 {
-    echo 'サービス名を入力して下さい : '
+    echo -n 'サービス名を入力して下さい : '
     read service_name
-    echo 'ユーザー名を入力してください : '
+    echo -n 'ユーザー名を入力してください : '
     read user_name
-    echo 'パスワードを入力してください : '
-    read password
+    echo -n 'パスワードを入力してください : '
+    read  password
     echo
 }
 
@@ -43,7 +43,7 @@ save_login_data() {
 }
 
 get_password() {
-    echo 'サービス名を入力して下さい：'
+    echo -n 'サービス名を入力して下さい：'
     read input_service_name
     result=$( grep "^${input_service_name}" keep_login_data.txt | awk -F ':' '{print $1,$2,$3}')
     read -a result <<< "${result}"
@@ -59,7 +59,7 @@ get_password() {
 
 while true; do
     echo "パスワードマネージャーへようこそ！"
-    echo "次の選択肢から入力してください(Add Password/Get Password/Exit)："
+    echo -n "次の選択肢から入力してください(Add Password/Get Password/Exit):"
     read menu
 
     if [ "${menu}" = "a" ]; then
