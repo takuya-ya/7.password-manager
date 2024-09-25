@@ -44,10 +44,7 @@ save_login_data() {
 }
 
 get_password() {
-#     # Get Password が入力された場合
-# サービス名を入力してください：
-# ## サービス名が保存されていなかった場合
-# そのサービスは登録されていません。
+
 # ## サービス名が保存されていた場合
 # サービス名：hoge
 # ユーザー名：fuga
@@ -56,6 +53,9 @@ get_password() {
     read input_service_name
     # 区切り文字で分割し、先頭ブロック（サービス名）を検索する方法もある
     grep "^${input_service_name}" keep_login_data.txt
+    if [ $? -ne 0 ]; then
+        echo 'そのサービスは登録されていません。'
+    fi
     echo
 }
 
