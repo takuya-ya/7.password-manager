@@ -52,7 +52,6 @@ get_password() {
     fi
 
     user_information=$( grep "^${input_service_name}" keep_login_data.txt | awk -F ':' '{print $1,$2,$3}')
-    echo "サービス名：${user_information[@]}"
 
     if [ -z "${user_information}" ]; then
         echo -e "そのサービスは登録されていません。\n"
