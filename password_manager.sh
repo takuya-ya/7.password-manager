@@ -67,8 +67,8 @@ get_password() {
     echo
 }
 
+echo "パスワードマネージャーへようこそ！"
 while true; do
-    echo "パスワードマネージャーへようこそ！"
     echo -n "次の選択肢から入力してください(Add Password/Get Password/Exit):"
     read menu
 
