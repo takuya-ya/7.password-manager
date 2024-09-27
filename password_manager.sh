@@ -43,7 +43,7 @@ save_login_data() {
 }
 
 encrypt_file() {
-    gpg -symmetric --yes --output encrypted_data.gpg keep_lgin_data.txt
+    gpg --symmetric --yes --output encrypted_data.gpg keep_login_data.txt
     if [ $? -eq 0 ]; then
         echo 'パスワードの追加は成功しました。'
         rm keep_login_data.txt
