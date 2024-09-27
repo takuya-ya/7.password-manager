@@ -42,7 +42,18 @@ save_login_data() {
     echo "${service_name}:${user_name}:${password}" >> keep_login_data.txt
 }
 
+encrypt_file() {
+    gpg --symmetric --yes --output encrypted_data.gpg keep_login_data.txt
+    if [ $? -eq 0 ]; then
+        echo 'パスワードの追加は成功しました。'
+        rm keep_login_data.txt
+        echo
+    fi
+}
+
 get_password() {
+    # gpg -d  keep_login_data.txt.gpg > decrypted_login_data.txt
+    # echo $?
     echo -n 'サービス名を入力して下さい：'
     read input_service_name
 
@@ -77,8 +88,7 @@ while true; do
         display_errors
         if [ -z "${error_status}" ]; then
             save_login_data
-            echo 'パスワードの追加は成功しました。'
-            echo
+            encrypt_file
         fi
     elif [  "${menu}" = "g" ]; then
         get_password
@@ -92,5 +102,9 @@ while true; do
 done
 
 << COMMENTOUT
+Add Password が入力された場合、サービス名、ユーザー名、パスワードをファイルに保存した後にファイルを暗号化します
 
+暗号化されたファイルを開いて、パスワードが読み取れないことを確認してください
+
+Get Password が入力された場合、暗号化されたファイルを復号化して（元の状態に戻して）サービス名、ユーザー名、パスワードを表示します。なおその際に、ファイルそのものは暗号化された状態を維持してください（Get Password後にファイルを開いてもファイルは暗号化されています）
 COMMENTOUT
