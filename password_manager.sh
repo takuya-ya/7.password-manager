@@ -43,16 +43,22 @@ save_login_data() {
 }
 
 encrypt_file() {
-    gpg --symmetric --yes --output encrypted_data.gpg keep_login_data.txt
+   gpg --symmetric --yes --output encrypted_data.gpg keep_ogin_data.txt 2>> error_log.txt
     if [ $? -eq 0 ]; then
         echo 'パスワードの追加は成功しました。'
         rm keep_login_data.txt
         echo
+    else
+        echo 'ファイルの暗号化に失敗しました。'
+        echo
+    return
     fi
+    #暗号化されているか確認
+    #  gpg -d  encrypted_data.gpg > keep_login_data.txt
 }
 
 get_password() {
-    # gpg -d  keep_login_data.txt.gpg > decrypted_login_data.txt
+     gpg -d  encrypted_data.gpg > keep_login_data.txt
     # echo $?
     echo -n 'サービス名を入力して下さい：'
     read input_service_name
@@ -73,6 +79,8 @@ get_password() {
     echo "サービス名：${user_information[0]}"
     echo "ユーザー名：${user_information[1]}"
     echo "パスワード：${user_information[2]}"
+    # 復元したファイルを削除
+    rm keep_login_data.txt
 
     echo
 }
