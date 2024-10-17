@@ -1,2 +1,4 @@
 gpg: can't open 'keep_ogin_data.txt': No such file or directory
 gpg: symmetric encryption of 'keep_ogin_data.txt' failed: No such file or directory
+gpg: can't open 'keep_ogin_data.txt': No such file or directory
+gpg: symmetric encryption of 'keep_ogin_data.txt' failed: No such file or directory
