@@ -25,6 +25,7 @@ validate_input()
     if [ -z "$password" ]; then
         errors[password_error]='パスワードが入力されていません'
     fi
+
     error_keys=(service_name_error user_name_error password_error)
 }
 
@@ -33,6 +34,8 @@ display_errors()
     for key in "${error_keys[@]}"; do
         if [ -n "${errors["${key}"]}" ]; then
             printf "%s\n" "${errors["${key}"]}"
+            #間違った入力がある場合、trueを代入。後の関数でtrueの有無により、入力を保存するかを分岐する。
+            # error_keysの配列の要素数をカウントして入力ミスがあるかどうかを確認するようにした方がういい。errorstatusに何回もtrueを代入するのは無駄。
             error_status=true
         fi
     done
@@ -53,11 +56,13 @@ encrypt_file() {
         echo
     return
     fi
+    # 登録サービスの重複を確認
     #暗号化されているか確認
     #  gpg -d  encrypted_data.gpg > keep_login_data.txt
 }
 
 get_password() {
+    # パスワードをファイルを元のファイルを残して復元
      gpg -d  encrypted_data.gpg > keep_login_data.txt
     # echo $?
     echo -n 'サービス名を入力して下さい：'
@@ -67,14 +72,15 @@ get_password() {
         echo -e "サービス名が入力されていません。\n"
         return
     fi
-
+    # 登録データを呼び出し、awkで空白に区切って変数に代入
     user_information=$( grep "^${input_service_name}" keep_login_data.txt | awk -F ':' '{print $1,$2,$3}')
 
     if [ -z "${user_information}" ]; then
         echo -e "そのサービスは登録されていません。\n"
         return
     fi
-
+    echo "${user_information}"
+    # 配列として変数に読み込み、インデントを呼び出して登録情報を出力
     read -a user_information <<< "${user_information}"
     echo "サービス名：${user_information[0]}"
     echo "ユーザー名：${user_information[1]}"
@@ -94,6 +100,7 @@ while true; do
         add_password
         validate_input
         display_errors
+        # error_statusでなく、errorsの配列の有無で入力ミスを確認に変更すること
         if [ -z "${error_status}" ]; then
             save_login_data
             encrypt_file
