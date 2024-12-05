@@ -9,6 +9,7 @@ add_password()
     echo -n 'パスワードを入力してください : '
     read -s password
     echo
+    
 }
 
 declare -A errors=([service_name_error]='' [user_name_error]='' [password_error]='')
