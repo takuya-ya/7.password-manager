@@ -8,7 +8,11 @@ add_password()
     read user_name
     echo -n 'パスワードを入力してください : '
     read -s password
+echo ''
     echo
+
+
+
     
 }
 
