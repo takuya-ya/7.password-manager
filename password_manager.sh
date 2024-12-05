@@ -10,6 +10,8 @@ add_password()
     read -s password
     echo
 
+
+
     
 }
 
@@ -48,7 +50,7 @@ save_login_data() {
 }
 
 encrypt_file() {
-   gpg --symmetric --yes --output encrypted_data.gpg keep_ogin_data.txt 2>> error_log.txt
+   gpg --symmetric --yes --output encrypted_data.gpg keep_login_data.txt 2>> error_log.txt
     if [ $? -eq 0 ]; then
         echo 'パスワードの追加は成功しました。'
         rm keep_login_data.txt
